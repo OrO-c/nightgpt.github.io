@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Pseudo Loading Effect</title>
+  <style>
+    .video-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .fake-loader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000; /* 设置背景色 */
+      z-index: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 4px; /* 进度条高度 */
+      background-color: #007bff; /* 进度条颜色 */
+      animation: fillProgress 4s ease-in-out; /* 进度条动画，自定义动画效果 */
+    }
+
+    @keyframes fillProgress {
+      0% {
+        width: 0;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+
+    #myVideo {
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="video-container">
+    <video id="myVideo" controls poster="thumbnail.jpg">
+      <source src="movie.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="fake-loader">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('myVideo').addEventListener('canplaythrough', function() {
+      var progressBar = document.getElementById('progressBar');
+      progressBar.style.display = 'none'; // 当视频加载完毕后隐藏进度条
+      var fakeLoader = document.querySelector('.fake-loader');
+      fakeLoader.style.display = 'none'; // 当视频加载完毕后隐藏背景图片
+    });
+  </script>
+</body>
+</html>

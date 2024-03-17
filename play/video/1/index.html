@@ -16,10 +16,18 @@
 
 <body>
 <video
+      id="myVideo"
       controls
       src="nevergonna.mp4"
       poster="../yellow.jpg"
 ></video>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    var video = document.getElementById('myVideo');
+    video.requestFullscreen(); // 将视频全屏显示
+  });
+</script>
 </body>
 
 </html>

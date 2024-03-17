@@ -1,11 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video Pseudo Loading Effect</title>
   <style>
+    body {
+      display: flex;
+      justify-content: center; /* 使用 flex 布局让内容居中 */
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f2f2f2;
+    }
+
     .video-container {
       position: relative;
-      display: inline-block;
+      width: 80%; /* 指定宽度 */
+      height: 60vh; /* 指定高度 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden; /* 防止视频超出容器部分可见 */
     }
 
     .fake-loader {
@@ -14,17 +30,26 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #000; /* 设置背景色 */
+      background-image: url('placeholder.jpg'); /* 引用同目录下的图片作为背景 */
+      background-size: cover; /* 图片填充整个背景 */
       z-index: 1;
       display: flex;
-      align-items: center;
+      align-items: flex-end;  /* 将进度条放置到底部 */
+      justify-content: center; /* 文字水平居中 */
     }
 
     .progress-bar {
       width: 0%;
-      height: 4px; /* 进度条高度 */
+      height: 8px; /* 进度条更加粗细 */
       background-color: #007bff; /* 进度条颜色 */
-      animation: fillProgress 4s ease-in-out; /* 进度条动画，自定义动画效果 */
+      animation: fillProgress 4s ease-in-out;
+    }
+
+    #remainingTime {
+      font-size: 20px; /* 字体大小 */
+      color: #ff0000; /* 鲜红色 */
+      position: absolute;
+      bottom: 15px; /* 距离底部的位置 */
     }
 
     @keyframes fillProgress {
@@ -39,26 +64,43 @@
     #myVideo {
       position: relative;
       z-index: 2;
+      width: 100%; /* 播放器宽度100% */
+      height: auto; /* 高度自适应 */
     }
   </style>
 </head>
 <body>
   <div class="video-container">
     <video id="myVideo" controls poster="thumbnail.jpg">
-      <source src="movie.mp4" type="video/mp4">
+      <source src="satteetouy.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
     <div class="fake-loader">
       <div class="progress-bar" id="progressBar"></div>
+      <div id="remainingTime"></div>
     </div>
   </div>
   <script>
-    document.getElementById('myVideo').addEventListener('canplaythrough', function() {
+    var videoElement = document.getElementById('myVideo');
+    videoElement.addEventListener('canplaythrough', function() {
       var progressBar = document.getElementById('progressBar');
       progressBar.style.display = 'none'; // 当视频加载完毕后隐藏进度条
       var fakeLoader = document.querySelector('.fake-loader');
       fakeLoader.style.display = 'none'; // 当视频加载完毕后隐藏背景图片
     });
+
+    var fakeLoadingSeconds = 24; // 设定伪加载秒数
+    var remainingTimeElement = document.getElementById('remainingTime');
+    var progressBarElement = document.getElementById('progressBar');
+
+    var updateRemainingTime = function() {
+      var remainingTime = (1 - parseFloat(progressBarElement.style.width) / 100) * fakeLoadingSeconds;
+      remainingTimeElement.textContent = '预计还需' + remainingTime.toFixed(2) + '秒加载';
+    };
+
+    progressBarElement.addEventListener('animationiteration', function() {
+      updateRemainingTime();
+    });
   </script>
 </body>
-</html>
+  </html>

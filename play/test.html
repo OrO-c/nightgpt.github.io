@@ -152,7 +152,7 @@ async function createCard() {
   const cardContainer = document.getElementById('cardContainer');
   cardContainer.innerHTML = '';
   
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 5; i++) {
     const quote = await generateQuotes();
     const card = document.createElement('div');
     card.classList.add('card');

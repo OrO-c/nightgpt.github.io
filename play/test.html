@@ -12,13 +12,23 @@
     <script>
         // 使用GET方法请求API
         fetch('https://api.pearktrue.cn/api/ruozhiba/')
-            .then(response => response.json())  // 将响应解析为JSON
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();  // 直接将响应转化为JSON
+            })
             .then(data => {
-                // 获取instruction字段并展示
-                document.getElementById('instruction').innerText = data.instruction;
+                console.log('API Response:', data);  // 调试信息：输出整个数据对象
+                if (data && data.instruction) {
+                    document.getElementById('instruction').innerText = data.instruction;
+                } else {
+                    document.getElementById('instruction').innerText = 'Instruction not found.';
+                }
             })
             .catch(error => {
                 console.error('Error fetching the API:', error);
+                document.getElementById('instruction').innerText = 'Failed to fetch data.';
             });
     </script>
 </body>

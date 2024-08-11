@@ -1,0 +1,44 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>API 接入示例</title>  
+</head>  
+<body>  
+    <button id="fetchData">获取数据</button>  
+    <div id="instruction"></div>  
+    <div id="output"></div>  
+  
+    <script>  
+        document.getElementById('fetchData').addEventListener('click', function() {  
+            // 假设API接受查询字符串参数instruction和output  
+            // 但通常，这些参数的值应该是动态生成的或用户输入的  
+            // 这里我们使用静态值作为示例  
+            const params = {  
+                instruction: 'exampleInstruction', // 替换为实际的值  
+                output: 'exampleOutput' // 替换为实际的值  
+            };  
+  
+            // 使用fetch API发送GET请求  
+            // 将参数转换为查询字符串并附加到URL上  
+            const queryString = new URLSearchParams(params).toString();  
+            fetch(`https://api.pearktrue.cn/api/ruozhiba/?${queryString}`)  
+            .then(response => {  
+                if (!response.ok) {  
+                    throw new Error('Network response was not ok');  
+                }  
+                return response.json(); // 解析JSON响应  
+            })  
+            .then(data => {  
+                // 假设API返回的对象包含instruction和output属性  
+                // 注意：这里的instruction和output可能不是从请求参数中返回的，  
+                // 而是API根据请求生成的或查询到的数据  
+                document.getElementById('instruction').textContent = data.instruction || 'No instruction data';  
+                document.getElementById('output').textContent = data.output || 'No output data';  
+            })  
+            .catch(error => console.error('Error:', error)); // 错误处理  
+        });  
+    </script>  
+</body>  
+</html>

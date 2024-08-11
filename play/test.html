@@ -3,37 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>简单的GET请求示例</title>
-<script>
-        document.getElementById('fetchDataButton').addEventListener('click', function() {
-            // API URL
-            const url = 'https://api.pearktrue.cn/api/ruozhiba/';
-            // 发送GET请求
-            fetch(url)
-                .then(response => response.json()) // 解析JSON格式的响应
-                .then(data => {
-                    // 将返回的结果显示在页面上
-                    document.getElementById('instructionResult').innerText = data.instruction;
-                    document.getElementById('outputResult').innerText = data.output;
-                })
-                .catch(error => {
-                    console.error('请求出错:', error);
-                    document.getElementById('instructionResult').innerText = '请求失败';
-                    document.getElementById('outputResult').innerText = '请求失败';
-                });
-        });
-</script>
+    <title>API Instruction Display</title>
 </head>
 <body>
-    <h1>获取API数据</h1>
-    <button id="fetchDataButton">获取数据</button>
+    <h1>API Instruction</h1>
+    <div id="instruction"></div>
 
-    <h2>API 返回的结果:</h2>
-    <div id="result">
-        <p><strong>Instruction:</strong> <span id="instructionResult"></span></p>
-        <p><strong>Output:</strong> <span id="outputResult"></span></p>
-    </div>
-
-  
+    <script>
+        // 使用GET方法请求API
+        fetch('https://api.pearktrue.cn/api/ruozhiba/')
+            .then(response => response.json())  // 将响应解析为JSON
+            .then(data => {
+                // 获取instruction字段并展示
+                document.getElementById('instruction').innerText = data.instruction;
+            })
+            .catch(error => {
+                console.error('Error fetching the API:', error);
+            });
+    </script>
 </body>
 </html>

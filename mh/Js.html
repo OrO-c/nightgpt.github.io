@@ -2,7 +2,7 @@
   <title>随机弱智吧</title>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>function ruozhitextq() {    fetch("https://api.pearktrue.cn/api/ruozhiba/")      .then(response => response.json())      .then(data => {        document.getElementById("ruozhitext1").textContent = "data.instruction";      })      .catch(error => {        console.log("Error:", error);      });  }  getIPAddress();</script>
+<script>function ruozhitextq() {    fetch("https://api.pearktrue.cn/api/ruozhiba/")      .then(response => response.json())      .then(instruction => {        document.getElementById("ruozhitext1").textContent = "data.instruction";      })      .catch(error => {        console.log("Error:", error);      });  }  getIPAddress();</script>
 </head>
 <body>
   <div id="ruozhitextq"></div>

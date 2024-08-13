@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>版本检测</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        #message {
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">正在检测版本...</div>
+
+    <script>
+        function checkVersion() {
+            const userAgent = navigator.userAgent;
+            const versionMatch = userAgent.match(/V\((\d+(\.\d+)?)\)/);
+
+            if (versionMatch) {
+                const versionNumber = parseFloat(versionMatch[1]);
+
+                if (versionNumber < 1) {
+                    document.getElementById('message').textContent = "版本并非最新，5秒后将跳转到更新页面...";
+                    setTimeout(() => {
+                        window.location.href = "https://www.magicalapp.cn/appview?id=1704890920282";
+                    }, 5000);
+                } else if (versionNumber === 1) {
+                    document.getElementById('message').textContent = "好棒，你的版本是最新的！";
+                } else {
+                    document.getElementById('message').textContent = "检测到未知版本。";
+                }
+            } else {
+                document.getElementById('message').textContent = "无法检测到版本信息。";
+            }
+        }
+
+        window.onload = checkVersion;
+    </script>
+</body>
+</html>

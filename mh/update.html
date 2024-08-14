@@ -6,24 +6,90 @@
     <title>版本检测</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
             text-align: center;
+        }
+
+        #content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        img.logo {
+            width: 60px; /* 图标大小 */
+            margin-right: 15px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        #title {
+            font-size: 28px;
+            color: #fff;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        #version {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
         }
 
         #message {
             font-size: 24px;
-            color: #333;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 添加一个简单的loading动画 */
+        #loading {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #fff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div id="message">正在检测版本...</div>
+    <div id="content">
+        <div id="header">
+            <img src="logo.png" alt="奇妙精神医院的图标" class="logo">
+            <div id="title">奇妙精神医院</div>
+        </div>
+        <div id="version"></div>
+        <div id="loading"></div>
+        <div id="message">正在检测版本...</div>
+    </div>
 
     <script>
         function checkVersion() {
@@ -32,6 +98,9 @@
 
             if (versionMatch) {
                 const versionNumber = parseFloat(versionMatch[1]);
+
+                // 显示当前版本信息
+                document.getElementById('version').textContent = `当前版本: V(${versionNumber})`;
 
                 if (versionNumber < 1) {
                     document.getElementById('message').textContent = "版本并非最新，5秒后将跳转到更新页面...";
@@ -46,6 +115,9 @@
             } else {
                 document.getElementById('message').textContent = "无法检测到版本信息。";
             }
+
+            // 隐藏loading动画
+            document.getElementById('loading').style.display = 'none';
         }
 
         window.onload = checkVersion;

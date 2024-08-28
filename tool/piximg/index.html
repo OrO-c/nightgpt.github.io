@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pixiv图片查询</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .form-group .radio-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .form-group .radio-group label {
+            margin: 0;
+            cursor: pointer;
+        }
+        .image-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .download-btn {
+            display: none; /* 初始隐藏下载按钮 */
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        .download-btn:hover {
+            background-color: #218838;
+        }
+        .error-message {
+            display: none;
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+        @media (max-width: 600px) {
+            .form-group button, .download-btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pixiv 图片查询</h1>
+        <p>在框内输入作品ID（如82775556）再按“查询”按钮即可查看对应作品。</p>
+        <p>对于一个ID有多张图片的，请用pid+图片序号的格式输入（例：78286152-2：id为78286152的作品的第2张图）。</p>
+        <p>（图片为动态产生，准确档案类型会以Content-Type header发送）</p>
+        <hr/>
+        <div class="form-group">
+            <input type="text" id="inputer" placeholder="输入pid" required="required"/>
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="checkInput()">查询</button>
+        </div>
+        <div class="form-group">
+            <p>图片格式：</p>
+            <div class="radio-group">
+                <label><input type="radio" name="tp" value="png" checked="checked"/> png</label>
+                <label><input type="radio" name="tp" value="jpg"/> jpg</label>
+                <label><input type="radio" name="tp" value="gif"/> gif</label>
+            </div>
+        </div>
+        <hr/>
+        <div class="image-container">
+            <img id="image" src="https://pixiv.re" alt="图片不存在或无法查看图片（确定pid存在且图片格式正确）"/>
+            <a id="downloadBtn" class="download-btn" href="#" download>下载图片</a>
+        </div>
+        <div id="error-message" class="error-message">请确保有适宜的网络环境并重试。</div>
+        <noscript>无法使用JavaScript</noscript>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="https://github.com/Yweiwu30/pixivTools" style="color: #007bff; text-decoration: none;">下载exe</a>
+        </div>
+    </div>
+    <script>
+        function checkInput() {
+            var text = document.getElementById("inputer").value;
+            var type_pic = document.getElementsByName("tp");
+            var type = "png"; // Default type
+            for(var i = 0; i < type_pic.length; i++) {
+                if(type_pic[i].checked) {
+                    type = type_pic[i].value;
+                }
+            }
+
+            var image_e = document.getElementById('image');
+            var downloadBtn = document.getElementById('downloadBtn');
+            var errorMessage = document.getElementById('error-message');
+            var imageUrl = "https://pixiv.re/" + text + "." + type;
+
+            // Initial setup
+            image_e.src = "";
+            downloadBtn.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            // Retry mechanism
+            var attempts = 0;
+            function attemptLoadImage() {
+                var img = new Image();
+                img.onload = function() {
+                    image_e.src = imageUrl;
+                    downloadBtn.style.display = 'block';
+                };
+                img.onerror = function() {
+                    attempts++;
+                    if (attempts < 3) {
+                        setTimeout(attemptLoadImage, 1000); // Retry after 1 second
+                    } else {
+                        errorMessage.style.display = 'block'; // Show error message after 3 failed attempts
+                    }
+                };
+                img.src = imageUrl;
+            }
+            attemptLoadImage();
+        }
+    </script>
+</body>
+</html>

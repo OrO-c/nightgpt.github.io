@@ -75,23 +75,6 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-        .download-btn {
-            display: none; /* 初始隐藏下载按钮 */
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 4px;
-            background-color: #28a745;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-        }
-        .download-btn:hover {
-            background-color: #218838;
-        }
         .error-message {
             display: none;
             color: red;
@@ -122,7 +105,7 @@
             100% { transform: rotate(360deg); }
         }
         @media (max-width: 600px) {
-            .form-group button, .download-btn {
+            .form-group button {
                 font-size: 14px;
             }
         }
@@ -152,7 +135,6 @@
         <hr/>
         <div class="image-container">
             <img id="image" src="https://pixiv.re" alt="图片不存在或无法查看图片（确定pid存在且图片格式正确）"/>
-            <a id="downloadBtn" class="download-btn" href="#" download>下载图片</a>
         </div>
         <div id="loading-message" class="loading-message">
             正在加载图片<svg class="loading-spinner" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20"></circle></svg>
@@ -175,14 +157,12 @@
             }
 
             var image_e = document.getElementById('image');
-            var downloadBtn = document.getElementById('downloadBtn');
             var errorMessage = document.getElementById('error-message');
             var loadingMessage = document.getElementById('loading-message');
             var imageUrl = "https://pixiv.re/" + text + "." + type;
 
             // Initial setup
             image_e.src = "";
-            downloadBtn.style.display = 'none';
             errorMessage.style.display = 'none';
             loadingMessage.style.display = 'block'; // Show loading message
 
@@ -192,7 +172,6 @@
                 var img = new Image();
                 img.onload = function() {
                     image_e.src = imageUrl;
-                    downloadBtn.style.display = 'block'; // Show download button
                     loadingMessage.style.display = 'none'; // Hide loading message
                 };
                 img.onerror = function() {

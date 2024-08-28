@@ -99,6 +99,28 @@
             text-align: center;
             margin-top: 10px;
         }
+        .loading-message {
+            display: none;
+            color: #007bff;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .loading-spinner {
+            display: inline-block;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #007bff;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
         @media (max-width: 600px) {
             .form-group button, .download-btn {
                 font-size: 14px;
@@ -132,6 +154,9 @@
             <img id="image" src="https://pixiv.re" alt="图片不存在或无法查看图片（确定pid存在且图片格式正确）"/>
             <a id="downloadBtn" class="download-btn" href="#" download>下载图片</a>
         </div>
+        <div id="loading-message" class="loading-message">
+            正在加载图片<svg class="loading-spinner" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20"></circle></svg>
+        </div>
         <div id="error-message" class="error-message">请确保有适宜的网络环境并重试。</div>
         <noscript>无法使用JavaScript</noscript>
         <div style="text-align: center; margin-top: 20px;">
@@ -152,12 +177,14 @@
             var image_e = document.getElementById('image');
             var downloadBtn = document.getElementById('downloadBtn');
             var errorMessage = document.getElementById('error-message');
+            var loadingMessage = document.getElementById('loading-message');
             var imageUrl = "https://pixiv.re/" + text + "." + type;
 
             // Initial setup
             image_e.src = "";
             downloadBtn.style.display = 'none';
             errorMessage.style.display = 'none';
+            loadingMessage.style.display = 'block'; // Show loading message
 
             // Retry mechanism
             var attempts = 0;
@@ -165,14 +192,16 @@
                 var img = new Image();
                 img.onload = function() {
                     image_e.src = imageUrl;
-                    downloadBtn.style.display = 'block';
+                    downloadBtn.style.display = 'block'; // Show download button
+                    loadingMessage.style.display = 'none'; // Hide loading message
                 };
                 img.onerror = function() {
                     attempts++;
                     if (attempts < 3) {
                         setTimeout(attemptLoadImage, 1000); // Retry after 1 second
                     } else {
-                        errorMessage.style.display = 'block'; // Show error message after 3 failed attempts
+                        loadingMessage.style.display = 'none'; // Hide loading message
+                        errorMessage.style.display = 'block'; // Show error message
                     }
                 };
                 img.src = imageUrl;

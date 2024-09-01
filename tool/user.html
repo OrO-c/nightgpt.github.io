@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置 Userok Cookie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        button {
+            padding: 15px 30px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <button onclick="setCookie()">点击设置 Cookie</button>
+
+    <script>
+        // 检测是否存在名为 Userok 的 Cookie
+        function checkCookie() {
+            const cookies = document.cookie.split('; ');
+            const userOkCookie = cookies.find(row => row.startsWith('Userok='));
+            if (userOkCookie) {
+                // 如果存在则关闭当前页面并返回上一个浏览过的页面
+                window.history.back();
+            }
+        }
+
+        // 设置名为 Userok 的 Cookie，有效期为永久
+        function setCookie() {
+            const d = new Date();
+            d.setTime(d.getTime() + (365*24*60*60*1000*100)); // 100年有效期，相当于永久
+            const expires = "expires=" + d.toUTCString();
+            document.cookie = "Userok=true; " + expires + "; path=/";
+            alert("Cookie 已设置！");
+        }
+
+        // 页面加载时检查 Cookie
+        checkCookie();
+    </script>
+</body>
+</html>

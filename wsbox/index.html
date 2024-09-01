@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人作品索引</title>
     <style>
+        /* 默认浅色模式样式 */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -15,12 +16,14 @@
         header {
             background-color: #333;
             color: #fff;
-            padding: 20px 0;
+            padding: 20px;
             text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         header h1 {
             margin: 0;
-            font-size: 2em;
+            font-size: 2.5em;
+            font-weight: 700;
         }
         .container {
             display: grid;
@@ -30,30 +33,36 @@
         }
         .category {
             background-color: #fff;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .category:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
         }
         .category-header {
             padding: 15px;
             cursor: pointer;
             background-color: #28a745;
             color: #fff;
-            font-size: 1.2em;
+            font-size: 1.4em;
             text-align: center;
             transition: background-color 0.3s;
+            border-bottom: 1px solid #ddd;
         }
         .category-header:hover {
             background-color: #218838;
         }
         .category-content {
             display: none;
-            padding: 10px;
-            background-color: #f9f9f9;
+            padding: 15px;
+            background-color: #fafafa;
         }
         .category-content a {
             display: block;
-            padding: 10px;
+            padding: 12px;
             text-decoration: none;
             color: #333;
             border-bottom: 1px solid #ddd;
@@ -64,6 +73,61 @@
         }
         .category-content a:hover {
             background-color: #e2e2e2;
+        }
+        footer {
+            background-color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+        footer p {
+            margin: 0;
+            color: #666;
+        }
+
+        /* 黑暗模式样式 */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #181818;
+                color: #e0e0e0;
+            }
+            header {
+                background-color: #222;
+                color: #ddd;
+            }
+            .category {
+                background-color: #333;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+            .category-header {
+                background-color: #4caf50;
+                color: #fff;
+                border-bottom: 1px solid #555;
+            }
+            .category-header:hover {
+                background-color: #45a049;
+            }
+            .category-content {
+                background-color: #222;
+            }
+            .category-content a {
+                color: #ddd;
+                border-bottom: 1px solid #444;
+            }
+            .category-content a:hover {
+                background-color: #333;
+            }
+            footer {
+                background-color: #222;
+                color: #ddd;
+            }
+            footer p {
+                color: #999;
+            }
         }
     </style>
 </head>
@@ -90,6 +154,9 @@
         </div>
         <!-- 添加更多分类 -->
     </div>
+    <footer>
+        <p>© 2024 个人作品索引</p>
+    </footer>
     <script>
         function toggleCategory(contentId) {
             const content = document.getElementById(contentId);

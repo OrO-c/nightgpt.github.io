@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线 HTML 源码可视化运行器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .header {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .editor-container {
+            display: flex;
+            flex: 1;
+            margin: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .editor {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            box-sizing: border-box;
+            font-family: monospace;
+            font-size: 14px;
+            height: 100%;
+            overflow-y: auto;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .editor:not(:last-child) {
+            border-right: 1px solid #ddd;
+        }
+        h2 {
+            margin: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007BFF;
+            color: #007BFF;
+            font-size: 18px;
+        }
+        textarea {
+            width: 100%;
+            height: calc(100vh - 150px);
+            box-sizing: border-box;
+            border: none;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: none;
+        }
+        button {
+            padding: 12px 20px;
+            margin: 10px;
+            border: none;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        #output {
+            border: 1px solid #ddd;
+            border-top: none;
+            padding: 10px;
+            box-sizing: border-box;
+            flex: 1;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">在线 HTML 源码可视化运行器</div>
+    <div class="editor-container">
+        <div class="editor">
+            <h2>HTML</h2>
+            <textarea id="htmlInput" placeholder="输入 HTML 代码..."></textarea>
+        </div>
+        <div class="editor">
+            <h2>CSS</h2>
+            <textarea id="cssInput" placeholder="输入 CSS 代码..."></textarea>
+        </div>
+        <div class="editor">
+            <h2>JavaScript</h2>
+            <textarea id="jsInput" placeholder="输入 JavaScript 代码..."></textarea>
+        </div>
+    </div>
+    <button onclick="runCode()">运行代码</button>
+    <iframe id="output" sandbox="allow-scripts"></iframe>
+
+    <script>
+        function checkCookie() {
+            const cookies = document.cookie.split('; ');
+            const userOkCookie = cookies.find(row => row.startsWith('Userok='));
+            if (!userOkCookie) {
+                window.location.href = 'user.html';
+            }
+        }
+
+        function runCode() {
+            const html = document.getElementById('htmlInput').value;
+            const css = `<style>${document.getElementById('cssInput').value}</style>`;
+            const js = `<script>${document.getElementById('jsInput').value}<\/script>`;
+
+            const outputFrame = document.getElementById('output');
+            const outputDocument = outputFrame.contentDocument || outputFrame.contentWindow.document;
+
+            outputDocument.open();
+            outputDocument.write(html + css + js);
+            outputDocument.close();
+        }
+
+        // Check the cookie on page load
+        checkCookie();
+    </script>
+</body>
+</html>

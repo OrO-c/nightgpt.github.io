@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人网站主页</title>
+    <title>个人作品索引</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,63 +33,72 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            text-align: center;
-            transition: transform 0.3s;
         }
-        .category:hover {
-            transform: scale(1.05);
-        }
-        .category img {
-            width: 100%;
-            height: auto;
-        }
-        .category h3 {
-            margin: 10px 0;
+        .category-header {
+            padding: 15px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: #fff;
             font-size: 1.2em;
-        }
-        .category p {
-            padding: 0 10px 10px;
-            font-size: 0.9em;
-        }
-        footer {
-            background-color: #fff;
-            padding: 10px 0;
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
             text-align: center;
+            transition: background-color 0.3s;
         }
-        footer p {
-            margin: 0;
+        .category-header:hover {
+            background-color: #218838;
+        }
+        .category-content {
+            display: none;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        .category-content a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s;
+        }
+        .category-content a:last-child {
+            border-bottom: none;
+        }
+        .category-content a:hover {
+            background-color: #e2e2e2;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>个人网站</h1>
+        <h1>个人作品索引</h1>
     </header>
     <div class="container">
-        <div class="category" id="category1">
-            <img src="category1.jpg" alt="分类 1">
-            <h3>分类 1</h3>
-            <p>描述分类 1 的简短文字。</p>
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory('category1-content')">分类 1</div>
+            <div class="category-content" id="category1-content">
+                <a href="作品1链接" target="_blank">作品 1</a>
+                <a href="作品2链接" target="_blank">作品 2</a>
+                <a href="作品3链接" target="_blank">作品 3</a>
+            </div>
         </div>
-        <div class="category" id="category2">
-            <img src="category2.jpg" alt="分类 2">
-            <h3>分类 2</h3>
-            <p>描述分类 2 的简短文字。</p>
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory('category2-content')">分类 2</div>
+            <div class="category-content" id="category2-content">
+                <a href="作品4链接" target="_blank">作品 4</a>
+                <a href="作品5链接" target="_blank">作品 5</a>
+                <a href="作品6链接" target="_blank">作品 6</a>
+            </div>
         </div>
-        <div class="category" id="category3">
-            <img src="category3.jpg" alt="分类 3">
-            <h3>分类 3</h3>
-            <p>描述分类 3 的简短文字。</p>
-        </div>
-        <div class="category" id="category4">
-            <img src="category4.jpg" alt="分类 4">
-            <h3>分类 4</h3>
-            <p>描述分类 4 的简短文字。</p>
-        </div>
+        <!-- 添加更多分类 -->
     </div>
-    <footer>
-        <p>© 2024 个人网站</p>
-    </footer>
+    <script>
+        function toggleCategory(contentId) {
+            const content = document.getElementById(contentId);
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>

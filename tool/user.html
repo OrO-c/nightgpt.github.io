@@ -35,16 +35,6 @@
     <button onclick="setCookie()">点击设置 Cookie</button>
 
     <script>
-        // 检测是否存在名为 Userok 的 Cookie
-        function checkCookie() {
-            const cookies = document.cookie.split('; ');
-            const userOkCookie = cookies.find(row => row.startsWith('Userok='));
-            if (userOkCookie) {
-                // 如果存在则关闭当前页面并返回上一个浏览过的页面
-                window.history.back();
-            }
-        }
-
         // 设置名为 Userok 的 Cookie，有效期为永久
         function setCookie() {
             const d = new Date();
@@ -52,11 +42,7 @@
             const expires = "expires=" + d.toUTCString();
             document.cookie = "Userok=true; " + expires + "; path=/";
             alert("Cookie 已设置！");
-            window.history.back(); // 设置完 Cookie 后返回上一页
         }
-
-        // 页面加载时检查 Cookie
-        checkCookie();
     </script>
 </body>
 </html>

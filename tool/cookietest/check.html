@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>密码验证</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input[type="password"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>请输入密码</h2>
+        <input type="password" id="password" placeholder="请输入密码">
+        <button onclick="validatePassword()">验证</button>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        // 设置Cookie的函数
+        function setCookie(name, value, maxAge) {
+            document.cookie = `${name}=${value}; max-age=${maxAge}; path=/`;
+        }
+
+        // 检查是否存在名为 ZhaoxiZf 的Cookie
+        function checkZhaoxiZfCookie() {
+            return document.cookie.split('; ').some(cookie => cookie.startsWith('ZhaoxiZf='));
+        }
+
+        // 验证密码的函数
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const messageElement = document.getElementById('message');
+
+            if (checkZhaoxiZfCookie()) {
+                // 如果存在 ZhaoxiZf Cookie，无论输入什么密码都显示错误
+                messageElement.textContent = "密码错误！";
+                messageElement.style.color = "red";
+            } else {
+                if (password === "true") {
+                    // 输入true，验证成功，设置ZhaoiiCookq Cookie，有效期60秒，跳转到privacy.html
+                    setCookie('ZhaoiiCookq', 'true', 60);
+                    messageElement.textContent = "密码验证成功！";
+                    messageElement.style.color = "green";
+                    setTimeout(() => {
+                        window.location.href = "privacy.html";
+                    }, 1000);
+                } else if (password === "zifen") {
+                    // 输入zifen，验证成功，设置ZhaoxiZf Cookie，有效期为永久
+                    setCookie('ZhaoxiZf', 'true', 60*60*24*365*100); // 设置100年，等同于永久
+                    messageElement.textContent = "密码验证成功！";
+                    messageElement.style.color = "green";
+                } else {
+                    // 其他情况显示密码错误
+                    messageElement.textContent = "密码错误！";
+                    messageElement.style.color = "red";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

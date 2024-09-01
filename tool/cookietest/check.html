@@ -47,8 +47,6 @@
             font-size: 16px;
         }
     </style>
-    <!-- 引入 MD5 库 -->
-    <script src="md5.js"></script>
 </head>
 <body>
     <div class="container">
@@ -74,19 +72,12 @@
             const password = document.getElementById('password').value;
             const messageElement = document.getElementById('message');
 
-            // 密码的 MD5 摘要（假设为以下值）
-            const validMd5ForTrue = '098f6bcd4621d373cade4e832627b4f6'; // 'true' 的 MD5 摘要
-            const validMd5ForZifen = '5f4dcc3b5aa765d61d8327deb882cf99'; // 'zifen' 的 MD5 摘要
-
-            // 计算输入密码的 MD5 摘要
-            const inputMd5 = md5(password);
-
             if (checkZhaoxiZfCookie()) {
                 // 如果存在 ZhaoxiZf Cookie，无论输入什么密码都显示错误
                 messageElement.textContent = "密码错误！";
                 messageElement.style.color = "red";
             } else {
-                if (inputMd5 === validMd5ForTrue) {
+                if (password === "true") {
                     // 输入true，验证成功，设置ZhaoiiCookq Cookie，有效期60秒，跳转到privacy.html
                     setCookie('ZhaoiiCookq', 'true', 60);
                     messageElement.textContent = "密码验证成功！";
@@ -94,7 +85,7 @@
                     setTimeout(() => {
                         window.location.href = "privacy.html";
                     }, 1000);
-                } else if (inputMd5 === validMd5ForZifen) {
+                } else if (password === "zifen") {
                     // 输入zifen，验证成功，设置ZhaoxiZf Cookie，有效期为永久
                     setCookie('ZhaoxiZf', 'true', 60*60*24*365*100); // 设置100年，等同于永久
                     messageElement.textContent = "密码验证成功！";

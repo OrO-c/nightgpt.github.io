@@ -22,54 +22,43 @@
             margin: 0;
             font-size: 2em;
         }
-        nav {
-            display: flex;
-            justify-content: center;
-            padding: 10px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        nav a {
-            text-decoration: none;
-            color: #333;
-            padding: 15px 20px;
-            font-size: 1.1em;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        nav a:hover {
-            background-color: #28a745;
-            color: #fff;
-        }
         .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             padding: 20px;
         }
-        .item {
+        .category {
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 10px;
             overflow: hidden;
             text-align: center;
-            width: 250px;
             transition: transform 0.3s;
         }
-        .item:hover {
+        .category:hover {
             transform: scale(1.05);
         }
-        .item img {
+        .category img {
             width: 100%;
             height: auto;
         }
-        .item h3 {
+        .category h3 {
             margin: 10px 0;
             font-size: 1.2em;
         }
-        .item p {
+        .category p {
             padding: 0 10px 10px;
             font-size: 0.9em;
+        }
+        footer {
+            background-color: #fff;
+            padding: 10px 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
         }
     </style>
 </head>
@@ -77,34 +66,30 @@
     <header>
         <h1>个人网站</h1>
     </header>
-    <nav>
-        <a href="#about">关于我</a>
-        <a href="#portfolio">作品集</a>
-        <a href="#contact">联系我</a>
-    </nav>
-    <div class="container" id="portfolio">
-        <div class="item">
-            <img src="example1.jpg" alt="作品1">
-            <h3>作品 1</h3>
-            <p>描述作品 1 的简短文字。</p>
+    <div class="container">
+        <div class="category" id="category1">
+            <img src="category1.jpg" alt="分类 1">
+            <h3>分类 1</h3>
+            <p>描述分类 1 的简短文字。</p>
         </div>
-        <div class="item">
-            <img src="example2.jpg" alt="作品2">
-            <h3>作品 2</h3>
-            <p>描述作品 2 的简短文字。</p>
+        <div class="category" id="category2">
+            <img src="category2.jpg" alt="分类 2">
+            <h3>分类 2</h3>
+            <p>描述分类 2 的简短文字。</p>
         </div>
-        <div class="item">
-            <img src="example3.jpg" alt="作品3">
-            <h3>作品 3</h3>
-            <p>描述作品 3 的简短文字。</p>
+        <div class="category" id="category3">
+            <img src="category3.jpg" alt="分类 3">
+            <h3>分类 3</h3>
+            <p>描述分类 3 的简短文字。</p>
+        </div>
+        <div class="category" id="category4">
+            <img src="category4.jpg" alt="分类 4">
+            <h3>分类 4</h3>
+            <p>描述分类 4 的简短文字。</p>
         </div>
     </div>
     <footer>
-        <nav>
-            <a href="#about">关于我</a>
-            <a href="#contact">联系我</a>
-        </nav>
-        <p style="text-align: center; padding: 10px;">© 2024 个人网站</p>
+        <p>© 2024 个人网站</p>
     </footer>
 </body>
 </html>

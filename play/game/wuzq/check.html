@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Low人验证</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+        }
+        h1 {
+            color: red;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        function setZhaoPassCookie() {
+            var now = new Date();
+            now.setTime(now.getTime() + 10 * 60 * 1000); // 有效期10分钟
+            document.cookie = "ZhaoPass=true; expires=" + now.toUTCString() + "; path=/";
+            alert("那就好好学好好记中考一定会刷下来一半的人咱们孩子都不笨只要认学认背肯定能打高分的咱们这学期要学完下册书做你旁边的个个都满分你烤41分你还上啥学啊直接上中专去你不low");
+        }
+    </script>
+</head>
+<body>
+    <h1>Low人验证</h1>
+    <p>你这么次差Low等着上中专吧</p>
+    <button onclick="setZhaoPassCookie()">我生物烤51分</button>
+</body>
+</html>

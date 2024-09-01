@@ -52,6 +52,7 @@
             const expires = "expires=" + d.toUTCString();
             document.cookie = "Userok=true; " + expires + "; path=/";
             alert("Cookie 已设置！");
+            window.history.back(); // 设置完 Cookie 后返回上一页
         }
 
         // 页面加载时检查 Cookie

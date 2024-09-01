@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>双人对战五子棋 - temptation</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style type="text/css">
+			#center{
+				text-align:center;
+			}
+			table {
+				border: 1px solid black;
+				border-collapse: collapse;
+				background-color: burlywood;
+				margin:0 auto;
+				width: 100%;
+				max-width: 600px;
+			}
+			
+			td {
+				border: 1px solid black;
+				width: 6.67%; /* 100% / 15 */
+				height: 40px;
+			}
+
+		</style>
+		<script type="text/javascript">
+			// 在页面加载前检测Cookie
+			if (document.cookie.indexOf('ZhaoPass') === -1) {
+				window.location.href = 'https://www.baidu.com';
+			}
+
+			// 设置棋子初始颜色
+			var currentColor = 'black';
+			
+			// 页面加载
+			window.onload = function () {
+				// 获取页面元素提示信息并赋值
+				document.getElementById('spanColor').innerText = currentColor;
+				
+				// 获取页面元素棋盘表格
+				var chessboard = document.getElementById('chessboard');
+				
+				// 绑定事件
+				chessboard.onclick = function () {
+					// 1、获取发生点击事件的单元格对象
+					var obj = event.target;
+					
+					// 2、判断发生点击事件的单元格对象是否已经落子
+					if (obj.style.backgroundColor == 'black' || obj.style.backgroundColor == 'white') {
+						alert('该位置已经有棋子，不能再落子！');
+					} else{
+						// 3、修改其背景颜色
+						obj.style.backgroundColor = currentColor;
+						obj.style.borderRadius = '50%';
+
+						// 4、创建当前棋子对象，提供给后续判断输赢使用
+						var currentChess = {
+							x: obj.cellIndex,
+							y: obj.parentNode.rowIndex,
+							color: currentColor
+						};
+						
+						// 5、设置赢的条件
+						var flag = (currentColor == 'black' ? 'bbbbb' : 'wwwww');
+						
+						// 6、设置接下来落子的颜色
+						currentColor = (currentColor == 'black') ? 'white' : 'black';
+						document.getElementById('spanColor').innerText = currentColor;
+						
+						// 7、判断输赢
+						var tdArr = document.getElementById('chessboard').getElementsByTagName('td');
+						var result = ['', '', '', ''];
+
+						for (var i = 0; i < tdArr.length; i++) {
+							var tempChess = {
+								x: tdArr[i].cellIndex,
+								y: tdArr[i].parentNode.rowIndex,
+								color: '0'
+							};
+							
+							if (tdArr[i].style.backgroundColor == 'black') {
+								tempChess.color = 'b';
+							} else if (tdArr[i].style.backgroundColor == 'white') {
+								tempChess.color = 'w';
+							}
+							
+							if (currentChess.y == tempChess.y) {
+								result[0] += tempChess.color;
+							}
+							if (currentChess.x == tempChess.x) {
+								result[1] += tempChess.color;
+							}
+							if ((currentChess.x - tempChess.x) == (currentChess.y - tempChess.y)) {
+								result[2] += tempChess.color;
+							}
+							if ((currentChess.x + currentChess.y) == (tempChess.x + tempChess.y)) {
+								result[3] += tempChess.color;
+							}
+						}
+						
+						for (var i = 0; i < result.length; i++) {
+							if(result[i].indexOf(flag) >= 0) {
+								alert((tempColor == 'black' ? '黑棋' : '白棋') + '获胜！');
+								break;
+							}
+						}
+					}
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<div id="center">
+			<h3>双人对战五子棋</h3>
+			<div id="divMsg">
+				落子者为：<span id="spanColor"></span>
+			</div>
+			<table id="chessboard">
+				<!-- 棋盘内容 -->
+				<tr>
+					<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+					<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+					<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+				</tr>
+				<!-- 重复14行 -->
+				<!-- 代码略去 -->
+			</table>
+		</div>
+	</body>
+</html>

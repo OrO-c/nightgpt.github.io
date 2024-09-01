@@ -47,6 +47,8 @@
             font-size: 16px;
         }
     </style>
+    <!-- 引入 js-md5 库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-md5/0.7.3/md5.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -57,12 +59,12 @@
     </div>
 
     <script>
-        // 设置Cookie的函数
+        // 设置 Cookie 的函数
         function setCookie(name, value, maxAge) {
             document.cookie = `${name}=${value}; max-age=${maxAge}; path=/`;
         }
 
-        // 检查是否存在名为 ZhaoxiZf 的Cookie
+        // 检查是否存在名为 ZhaoxiZf 的 Cookie
         function checkZhaoxiZfCookie() {
             return document.cookie.split('; ').some(cookie => cookie.startsWith('ZhaoxiZf='));
         }
@@ -71,23 +73,30 @@
         function validatePassword() {
             const password = document.getElementById('password').value;
             const messageElement = document.getElementById('message');
+            
+            // 计算密码的 MD5 摘要
+            const md5Password = md5(password);
+
+            // MD5 摘要的存储值
+            const md5True = md5("d6c6d8f004b7529ae4d22bda37083172");
+            const md5Zifen = md5("zifen");
 
             if (checkZhaoxiZfCookie()) {
                 // 如果存在 ZhaoxiZf Cookie，无论输入什么密码都显示错误
                 messageElement.textContent = "密码错误！";
                 messageElement.style.color = "red";
             } else {
-                if (password === "true") {
-                    // 输入true，验证成功，设置ZhaoiiCookq Cookie，有效期60秒，跳转到privacy.html
+                if (md5Password === md5True) {
+                    // 输入 true，验证成功，设置 ZhaoiiCookq Cookie，有效期 60 秒，跳转到 privacy.html
                     setCookie('ZhaoiiCookq', 'true', 60);
                     messageElement.textContent = "密码验证成功！";
                     messageElement.style.color = "green";
                     setTimeout(() => {
                         window.location.href = "privacy.html";
                     }, 1000);
-                } else if (password === "zifen") {
-                    // 输入zifen，验证成功，设置ZhaoxiZf Cookie，有效期为永久
-                    setCookie('ZhaoxiZf', 'true', 60*60*24*365*100); // 设置100年，等同于永久
+                } else if (md5Password === md5Zifen) {
+                    // 输入 zifen，验证成功，设置 ZhaoxiZf Cookie，有效期为永久
+                    setCookie('ZhaoxiZf', 'true', 60*60*24*365*100); // 设置 100 年，等同于永久
                     messageElement.textContent = "密码验证成功！";
                     messageElement.style.color = "green";
                 } else {

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello World</h1>
+
+    <script>
+        // 检查名为 ZhaoiiCookq 的 Cookie 是否存在
+        function checkCookie() {
+            const cookies = document.cookie.split('; ');
+            const cookieExists = cookies.some(cookie => cookie.startsWith('ZhaoiiCookq='));
+            if (!cookieExists) {
+                // 如果 Cookie 不存在，跳转到 baidu.com
+                window.location.href = "https://www.baidu.com";
+            }
+        }
+
+        // 执行检查函数
+        checkCookie();
+    </script>
+</body>
+</html>

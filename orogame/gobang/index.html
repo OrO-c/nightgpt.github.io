@@ -3,6 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>五子棋</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 获取所有的Cookie
+            const cookies = document.cookie.split(';');
+
+            // 查找名为 'GamePass' 的Cookie
+            let hasGamePass = false;
+            for (let cookie of cookies) {
+                if (cookie.trim().startsWith('GamePass=')) {
+                    hasGamePass = true;
+                    break;
+                }
+            }
+
+            // 如果没有找到 'GamePass' Cookie，则跳转到百度
+            if (!hasGamePass) {
+                window.location.href = "https://www.baidu.com";
+            }
+        });
+            </script>
 
 
     <!-- jQuery -->

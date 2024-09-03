@@ -1,0 +1,168 @@
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 获取所有的Cookie
+            const cookies = document.cookie.split(';');
+
+            // 查找名为 'GamePass' 的Cookie
+            let hasGamePass = false;
+            for (let cookie of cookies) {
+                if (cookie.trim().startsWith('GamePass=')) {
+                    hasGamePass = true;
+                    break;
+                }
+            }
+
+            // 如果没有找到 'GamePass' Cookie，则跳转到百度
+            if (!hasGamePass) {
+                window.location.href = "https://www.baidu.com";
+            }
+        });
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Game List</title>
+    <style>
+        /* 样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6347;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .game-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .game-card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            margin: 15px;
+            transition: transform 0.2s ease-in-out, background-color 0.3s, color 0.3s;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .game-card:hover {
+            transform: scale(1.05);
+        }
+
+        .game-card img {
+            border-radius: 10px;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .game-title {
+            font-size: 1.5em;
+            color: #ff6347;
+            margin: 10px 0;
+        }
+
+        .game-description {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .play-button {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .play-button:hover {
+            background-color: #ff4500;
+        }
+
+        /* 深色模式 */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1a1a1a;
+                color: #f5f5f5;
+            }
+
+            h1 {
+                color: #ffae42;
+            }
+
+            .game-card {
+                background-color: #333;
+                color: #f5f5f5;
+                box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            }
+
+            .game-title {
+                color: #ffae42;
+            }
+
+            .game-description {
+                color: #ccc;
+            }
+
+            .play-button {
+                background-color: #ffae42;
+                color: black;
+            }
+
+            .play-button:hover {
+                background-color: #ff9a1e;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Fun Game List</h1>
+
+    <div class="game-list">
+        <div class="game-card">
+            <img src="https://via.placeholder.com/300x200" alt="Game Image 1">
+            <h2 class="game-title">Game One</h2>
+            <p class="game-description">A thrilling adventure that will keep you on your toes!</p>
+            <button class="play-button">Play Now</button>
+        </div>
+
+        <div class="game-card">
+            <img src="https://via.placeholder.com/300x200" alt="Game Image 2">
+            <h2 class="game-title">Game Two</h2>
+            <p class="game-description">Test your skills in this fast-paced challenge!</p>
+            <button class="play-button">Play Now</button>
+        </div>
+
+        <div class="game-card">
+            <img src="https://via.placeholder.com/300x200" alt="Game Image 3">
+            <h2 class="game-title">Game Three</h2>
+            <p class="game-description">An epic journey awaits you in this fantasy world!</p>
+            <button class="play-button">Play Now</button>
+        </div>
+    </div>
+
+</body>
+</html>

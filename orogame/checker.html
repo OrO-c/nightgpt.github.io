@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>密码验证</title>
+    <style>
+        :root {
+            --background-color-light: #f5f5f5;
+            --background-color-dark: #1e1e1e;
+            --text-color-light: #333;
+            --text-color-dark: #ddd;
+            --input-background-light: #fff;
+            --input-background-dark: #2a2a2a;
+            --button-background-light: #007bff;
+            --button-background-dark: #004080;
+            --button-text-color: #fff;
+            --input-border-color: #ddd;
+            --input-border-dark: #444;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: var(--background-color-light);
+            color: var(--text-color-light);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            background-color: var(--input-background-light);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-color-light);
+            transition: color 0.3s;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid var(--input-border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: var(--input-background-light);
+            color: var(--text-color-light);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--button-background-light);
+            border: none;
+            border-radius: 4px;
+            color: var(--button-text-color);
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: darken(var(--button-background-light), 10%);
+        }
+
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--background-color-dark);
+                color: var(--text-color-dark);
+            }
+
+            .container {
+                background-color: var(--input-background-dark);
+            }
+
+            input[type="password"] {
+                background-color: var(--input-background-dark);
+                border: 1px solid var(--input-border-dark);
+                color: var(--text-color-dark);
+            }
+
+            button {
+                background-color: var(--button-background-dark);
+            }
+
+            button:hover {
+                background-color: darken(var(--button-background-dark), 10%);
+            }
+        }
+    </style>
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = name + "=" + (value || "") + ";" + expires + ";path=/";
+        }
+
+        function handleLogin() {
+            const passwordInput = document.getElementById('password').value;
+            const zxfail = getCookie('zxfail');
+
+            if (zxfail) {
+                alert('密码错误');
+                return;
+            }
+
+            if (passwordInput === 'Zx927@8i') {
+                setCookie('GamePass', 'true', 1/24); // 有效期为1小时
+                alert('登录成功');
+            } else if (passwordInput === '123456') {
+                setCookie('zxfail', 'true', 365 * 10); // 有效期为10年
+                alert('密码错误');
+            } else {
+                alert('密码错误');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>登录</h1>
+        <input type="password" id="password" placeholder="请输入密码">
+        <button onclick="handleLogin()">登录</button>
+    </div>
+</body>
+</html>

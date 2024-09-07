@@ -61,30 +61,32 @@
             margin-bottom: 40px;
         }
 
-        a {
+        /* 链接按钮样式 */
+        .button {
             display: inline-block;
-            margin: 10px 0;
-            padding: 10px 20px;
+            margin: 10px;
+            padding: 15px 30px;
             font-size: 24px;
             color: #fff;
             text-decoration: none;
             background: linear-gradient(90deg, #ff6a00, #ee0979); /* 按钮渐变效果 */
             border-radius: 25px;
-            transition: background 0.3s ease, transform 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            opacity: 0.75; /* 75% 不透明度 */
+            transition: background 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+            position: relative;
         }
 
-        a:hover {
+        .button:hover {
             background: linear-gradient(90deg, #ee0979, #ff6a00); /* 鼠标悬停渐变色反转 */
-            transform: scale(1.1); /* 悬停放大 */
+            transform: scale(1.05); /* 悬停放大 */
+            opacity: 1; /* 鼠标悬停时完全不透明 */
         }
 
-        /* 增强可读性 */
-        .content-wrapper {
-            background-color: rgba(0, 0, 0, 0.5); /* 黑色透明背景 */
-            padding: 30px;
-            border-radius: 15px;
-            display: inline-block;
+        /* 按钮文本 */
+        .button-text {
+            display: block;
+            text-align: center;
         }
     </style>
 </head>
@@ -98,10 +100,18 @@
     <div class="container">
         <div class="content-wrapper">
             <h1>韭菜视频</h1>
-            <a href="https://example1.com">链接1</a>
-            <a href="https://example2.com">链接2</a>
-            <a href="https://example3.com">链接3</a>
-            <a href="https://example4.com">链接4</a>
+            <div class="button">
+                <a href="https://example1.com" class="button-text">链接1</a>
+            </div>
+            <div class="button">
+                <a href="https://example2.com" class="button-text">链接2</a>
+            </div>
+            <div class="button">
+                <a href="https://example3.com" class="button-text">链接3</a>
+            </div>
+            <div class="button">
+                <a href="https://example4.com" class="button-text">链接4</a>
+            </div>
         </div>
     </div>
 

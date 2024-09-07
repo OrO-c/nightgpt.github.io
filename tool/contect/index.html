@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page Access</title>
+    <script>
+        // 用于模拟访问网页的函数
+        function visitPage(url) {
+            fetch(url, { method: 'GET', mode: 'no-cors' })
+                .then(response => {
+                    console.log(`Successfully accessed ${url}`);
+                })
+                .catch(error => {
+                    console.error(`Failed to access ${url}:`, error);
+                });
+        }
+
+        // 初始化多次访问
+        function simulateAccess() {
+            const url = "https://dj.fwcx315.com/qr/fw/1029188782183178";
+            const numRequests = 10; // 设置访问次数
+
+            for (let i = 0; i < numRequests; i++) {
+                setTimeout(() => {
+                    visitPage(url);
+                }, i * 1000); // 每秒发出一次请求
+            }
+        }
+
+        // 在页面加载完成后开始模拟访问
+        window.onload = function() {
+            simulateAccess();
+        };
+    </script>
+</head>
+<body>
+    <h1>Page Access Simulation</h1>
+    <p>Check the console for results.</p>
+</body>
+</html>

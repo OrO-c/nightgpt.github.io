@@ -14,6 +14,7 @@
             height: 100vh;
             margin: 0;
             background: linear-gradient(to bottom, #ff7e5f, #feb47b); /* 渐变背景 */
+            text-align: center;
         }
 
         .countdown {
@@ -37,6 +38,22 @@
             color: #ff5722; /* 橙色时间显示 */
         }
 
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #ff5722;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e64a19;
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .countdown {
@@ -47,6 +64,9 @@
             }
             .time {
                 font-size: 2rem;
+            }
+            .btn {
+                font-size: 0.9rem;
             }
         }
 
@@ -60,6 +80,9 @@
             .time {
                 font-size: 1.75rem;
             }
+            .btn {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
@@ -67,6 +90,7 @@
     <div class="countdown">
         <h1>内测倒计时</h1>
         <div class="time" id="timer"></div>
+        <button class="btn" onclick="copyText()">我要参加</button>
     </div>
 
     <script>
@@ -91,9 +115,25 @@
             // 如果倒计时结束，则显示“活动已结束”
             if (distance < 0) {
                 clearInterval(countdown);
-                document.getElementById("timer").innerHTML = "内内内内测已开始";
+                document.getElementById("timer").innerHTML = "活动已结束";
             }
         }, 1000);
+
+        // 复制文本并显示提示
+        function copyText() {
+            const text = "荔 和 朝夕";
+            
+            // 创建一个临时的文本区域来复制内容
+            const tempInput = document.createElement("textarea");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            // 弹出提示
+            alert("已复制“荔 和 朝夕”到剪贴板，打开妙评关注荔和朝夕，第一时间获取最新版本。");
+        }
     </script>
 </body>
 </html>

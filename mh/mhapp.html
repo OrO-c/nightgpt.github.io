@@ -5,26 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>内测倒计时</title>
     <style>
+        /* 基础样式 */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background: linear-gradient(to bottom, #ff7e5f, #feb47b); /* 渐变背景 */
         }
+
         .countdown {
             text-align: center;
-            font-size: 2em;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.85); /* 半透明背景 */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px; /* 最大宽度适合大屏幕 */
         }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
         .time {
-            font-size: 3em;
-            color: #ff6600;
+            font-size: 2.5rem;
+            color: #ff5722; /* 橙色时间显示 */
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .countdown {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.75rem;
+            }
+            .time {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .countdown {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .time {
+                font-size: 1.75rem;
+            }
         }
     </style>
 </head>
@@ -49,14 +84,14 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // 我才是老大
+            // 显示倒计时结果
             document.getElementById("timer").innerHTML = 
                 days + " 天 " + hours + " 时 " + minutes + " 分 " + seconds + " 秒 ";
 
             // 如果倒计时结束，则显示“活动已结束”
             if (distance < 0) {
                 clearInterval(countdown);
-                document.getElementById("timer").innerHTML = "内内内测已开始!";
+                document.getElementById("timer").innerHTML = "内内内内测已开始";
             }
         }, 1000);
     </script>

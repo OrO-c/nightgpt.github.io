@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简洁聊天机器人</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            background-color: white;
+            width: 400px;
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-box {
+            padding: 10px;
+            height: 400px;
+            overflow-y: scroll;
+            flex-grow: 1;
+            background-color: #fafafa;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+        .message.user {
+            background-color: #0084ff;
+            color: white;
+            margin-left: auto;
+        }
+        .message.bot {
+            background-color: #e5e5ea;
+            color: black;
+        }
+        .input-container {
+            display: flex;
+            border-top: 1px solid #e5e5ea;
+        }
+        .input-container input {
+            border: none;
+            padding: 10px;
+            flex-grow: 1;
+            font-size: 16px;
+        }
+        .input-container button {
+            background-color: #0084ff;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="输入您的消息..." />
+            <button onclick="sendMessage()">发送</button>
+        </div>
+    </div>
+
+    <script>
+        // 发送消息
+        function sendMessage() {
+            const userInput = document.getElementById("user-input").value;
+            if (userInput.trim() !== "") {
+                addMessage(userInput, "user");
+                botReply(userInput);
+                document.getElementById("user-input").value = "";
+            }
+        }
+
+        // 添加消息到聊天框
+        function addMessage(text, sender) {
+            const chatBox = document.getElementById("chat-box");
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `message ${sender}`;
+            messageDiv.textContent = text;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // 机器人回复
+        function botReply(userInput) {
+            let response = "对不起，我不太明白。";
+            
+            // 简单关键词识别与回复逻辑
+            if (userInput.includes("你好")) {
+                response = "你好！很高兴见到你 😊";
+            } else if (userInput.includes("帮助")) {
+                response = "你可以点击下面的按钮查看帮助：<button onclick='showHelp()'>查看帮助</button>";
+            } else if (userInput.includes("图片")) {
+                response = "这是你想要的图片：<br><img src='https://via.placeholder.com/150' alt='示例图片' />";
+            } else if (userInput.includes("链接")) {
+                response = "这是一个示例链接：<a href='https://www.example.com' target='_blank'>点击这里</a>";
+            }
+
+            // 显示回复
+            const chatBox = document.getElementById("chat-box");
+            const messageDiv = document.createElement("div");
+            messageDiv.className = "message bot";
+            messageDiv.innerHTML = response;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // 帮助按钮的事件
+        function showHelp() {
+            alert("这里是帮助文档的内容。");
+        }
+    </script>
+</body>
+</html>
